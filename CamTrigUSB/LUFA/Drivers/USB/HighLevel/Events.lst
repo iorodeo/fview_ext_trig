@@ -1,0 +1,71 @@
+   1               		.file	"Events.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  17               	.Ltext0:
+  18               		.section	.text.USB_Event_Stub,"ax",@progbits
+  19               	.global	USB_Event_Stub
+  21               	USB_Event_Stub:
+  22               	.LFB8:
+  23               	.LSM0:
+  24               	/* prologue: function */
+  25               	/* frame size = 0 */
+  26               	/* epilogue start */
+  27               	.LSM1:
+  28 0000 0895      		ret
+  29               	.LFE8:
+  31               		.weak	Event_USB_VBUSChange
+  32               		.set	Event_USB_VBUSChange,USB_Event_Stub
+  33               		.weak	Event_USB_VBUSConnect
+  34               		.set	Event_USB_VBUSConnect,USB_Event_Stub
+  35               		.weak	Event_USB_VBUSDisconnect
+  36               		.set	Event_USB_VBUSDisconnect,USB_Event_Stub
+  37               		.weak	Event_USB_Connect
+  38               		.set	Event_USB_Connect,USB_Event_Stub
+  39               		.weak	Event_USB_Disconnect
+  40               		.set	Event_USB_Disconnect,USB_Event_Stub
+  41               		.weak	Event_USB_DeviceEnumerationComplete
+  42               		.set	Event_USB_DeviceEnumerationComplete,USB_Event_Stub
+  43               		.weak	Event_USB_UnhandledControlPacket
+  44               		.set	Event_USB_UnhandledControlPacket,USB_Event_Stub
+  45               		.weak	Event_USB_ConfigurationChanged
+  46               		.set	Event_USB_ConfigurationChanged,USB_Event_Stub
+  47               		.weak	Event_USB_Suspend
+  48               		.set	Event_USB_Suspend,USB_Event_Stub
+  49               		.weak	Event_USB_WakeUp
+  50               		.set	Event_USB_WakeUp,USB_Event_Stub
+  51               		.weak	Event_USB_Reset
+  52               		.set	Event_USB_Reset,USB_Event_Stub
+  53               		.weak	Event_USB_DeviceError
+  54               		.set	Event_USB_DeviceError,USB_Event_Stub
+  79               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 Events.c
+     /tmp/ccOK91Hs.s:2      *ABS*:000000000000003f __SREG__
+     /tmp/ccOK91Hs.s:3      *ABS*:000000000000003e __SP_H__
+     /tmp/ccOK91Hs.s:4      *ABS*:000000000000003d __SP_L__
+     /tmp/ccOK91Hs.s:5      *ABS*:0000000000000034 __CCP__
+     /tmp/ccOK91Hs.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccOK91Hs.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccOK91Hs.s:21     .text.USB_Event_Stub:0000000000000000 USB_Event_Stub
+     /tmp/ccOK91Hs.s:21     .text.USB_Event_Stub:0000000000000000 Event_USB_VBUSChange
+     /tmp/ccOK91Hs.s:21     .text.USB_Event_Stub:0000000000000000 Event_USB_VBUSConnect
+     /tmp/ccOK91Hs.s:21     .text.USB_Event_Stub:0000000000000000 Event_USB_VBUSDisconnect
+     /tmp/ccOK91Hs.s:21     .text.USB_Event_Stub:0000000000000000 Event_USB_Connect
+     /tmp/ccOK91Hs.s:21     .text.USB_Event_Stub:0000000000000000 Event_USB_Disconnect
+     /tmp/ccOK91Hs.s:21     .text.USB_Event_Stub:0000000000000000 Event_USB_DeviceEnumerationComplete
+     /tmp/ccOK91Hs.s:21     .text.USB_Event_Stub:0000000000000000 Event_USB_UnhandledControlPacket
+     /tmp/ccOK91Hs.s:21     .text.USB_Event_Stub:0000000000000000 Event_USB_ConfigurationChanged
+     /tmp/ccOK91Hs.s:21     .text.USB_Event_Stub:0000000000000000 Event_USB_Suspend
+     /tmp/ccOK91Hs.s:21     .text.USB_Event_Stub:0000000000000000 Event_USB_WakeUp
+     /tmp/ccOK91Hs.s:21     .text.USB_Event_Stub:0000000000000000 Event_USB_Reset
+     /tmp/ccOK91Hs.s:21     .text.USB_Event_Stub:0000000000000000 Event_USB_DeviceError
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss

@@ -1,0 +1,21 @@
+# pack-refs with: peeled 
+7408a2ca8e869785d1e48ebc3ccb39beb3ec2b79 refs/tags/release/0.3.3
+1be831aa41b91f72b2585d8791d2263a9d230179 refs/tags/release/0.3.2
+648df9e323e1489dc76a7c0f3d9de58e005fee31 refs/tags/release/0.3.1
+a84461e5e160cbefff0a7cd37f777183d6fc9354 refs/tags/release/0.3.0
+e53cdbe358ac8231db4bcc72cffa3debb4838c6f refs/tags/release/0.2.9
+245581d8eda250edb9fbf55a679477bdcaf00089 refs/tags/release/0.2.8
+8c98a53230533793da72f76acd19ad1ea8460797 refs/tags/release/0.2.7
+6c93bfecf99672a58b03e32b1e1bc60b910916c4 refs/tags/release/0.2.6
+9d7c9428d927f163a8ffade8fa78dfc50dda4b23 refs/tags/release/0.2.5
+c7726fe2cc13184fd42b2f844ed6ea8a116ce454 refs/tags/release/0.2.4
+fdb2485a569c7f2ec8bae20fb399610446a81f2d refs/tags/release/0.2.3
+dee610725eb42e7fc4d71d3a9d36b73beb6a1ff4 refs/tags/release-0.2.2
+ad353188ffa6d70eb14e72c61243fcdee4cf1cc7 refs/tags/release-0.2.1
+5ed9c19ac2e744afa464b3f5863dfe6be2b58e3d refs/tags/release-0.2.0
+021499e664484837b05c30521d2c85ffd17d8609 refs/tags/LUFA-release-090209
+f0c486cbb68395e9497c22da57b94e0a3ead7deb refs/remotes/origin/pristine-tar
+63ee8e337978116985807a254ca705f138242f12 refs/remotes/origin/master
+f1c67ab9ba328556a5d099a3f53edd5806617a40 refs/remotes/origin/libusb1
+dd6c4a925e71070115c7c4c56b92f4ded645aa96 refs/remotes/origin/isochronous
+2c01eb55aa99f80a9a49bc7b851292fd4178b4ba refs/remotes/origin/board/PWM_BNC_1.0

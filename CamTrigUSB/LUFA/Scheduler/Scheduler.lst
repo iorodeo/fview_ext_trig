@@ -1,0 +1,195 @@
+   1               		.file	"Scheduler.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  17               	.Ltext0:
+  18               		.section	.text.Scheduler_HasDelayElapsed,"ax",@progbits
+  19               	.global	Scheduler_HasDelayElapsed
+  21               	Scheduler_HasDelayElapsed:
+  22               	.LFB16:
+  23               	.LSM0:
+  24               	.LVL0:
+  25               	/* prologue: function */
+  26               	/* frame size = 0 */
+  27 0000 AC01      		movw r20,r24
+  28 0002 FB01      		movw r30,r22
+  29               	.LBB7:
+  30               	.LSM1:
+  31 0004 8FB7      		in r24,__SREG__
+  32               	.LVL1:
+  33               	.LBB8:
+  34               	.LBB9:
+  35               	.LSM2:
+  36               	/* #APP */
+  37               	 ;  50 "/usr/lib/gcc/avr/4.3.4/../../../avr/include/util/atomic.h" 1
+  38 0006 F894      		cli
+  39               	 ;  0 "" 2
+  40               	/* #NOAPP */
+  41               	.LBE9:
+  42               	.LBE8:
+  43               	.LSM3:
+  44 0008 2091 0000 		lds r18,Scheduler_TickCounter
+  45 000c 3091 0000 		lds r19,(Scheduler_TickCounter)+1
+  46               	.LVL2:
+  47               	.LBB10:
+  48               	.LBB11:
+  49               	.LSM4:
+  50 0010 8FBF      		out __SREG__,r24
+  51               	.LSM5:
+  52               	.LBE11:
+  53               	.LBE10:
+  54               	.LBE7:
+  55               	.LSM6:
+  56 0012 8081      		ld r24,Z
+  57 0014 9181      		ldd r25,Z+1
+  58               	.LVL3:
+  59               	.LSM7:
+  60 0016 2817      		cp r18,r24
+  61 0018 3907      		cpc r19,r25
+  62 001a 00F0      		brlo .L2
+  63               	.LVL4:
+  64               	.LSM8:
+  65 001c B901      		movw r22,r18
+  66 001e 681B      		sub r22,r24
+  67 0020 790B      		sbc r23,r25
+  68 0022 CB01      		movw r24,r22
+  69               	.LVL5:
+  70 0024 00C0      		rjmp .L8
+  71               	.LVL6:
+  72               	.L2:
+  73               	.LSM9:
+  74 0026 8095      		com r24
+  75 0028 9095      		com r25
+  76 002a 820F      		add r24,r18
+  77 002c 931F      		adc r25,r19
+  78               	.L8:
+  79 002e 8417      		cp r24,r20
+  80 0030 9507      		cpc r25,r21
+  81 0032 00F0      		brlo .L3
+  82               	.LSM10:
+  83 0034 3183      		std Z+1,r19
+  84 0036 2083      		st Z,r18
+  85 0038 81E0      		ldi r24,lo8(1)
+  86               	.LVL7:
+  87 003a 0895      		ret
+  88               	.LVL8:
+  89               	.L3:
+  90               	.LSM11:
+  91 003c 80E0      		ldi r24,lo8(0)
+  92               	.LVL9:
+  93               	.LSM12:
+  94 003e 0895      		ret
+  95               	.LFE16:
+  97               		.section	.text.Scheduler_SetTaskMode,"ax",@progbits
+  98               	.global	Scheduler_SetTaskMode
+ 100               	Scheduler_SetTaskMode:
+ 101               	.LFB17:
+ 102               	.LSM13:
+ 103               	.LVL10:
+ 104               	/* prologue: function */
+ 105               	/* frame size = 0 */
+ 106 0000 9C01      		movw r18,r24
+ 107               	.LSM14:
+ 108 0002 E0E0      		ldi r30,lo8(Scheduler_TaskList)
+ 109 0004 F0E0      		ldi r31,hi8(Scheduler_TaskList)
+ 110               	.LVL11:
+ 111 0006 00C0      		rjmp .L10
+ 112               	.LVL12:
+ 113               	.L13:
+ 114               	.LSM15:
+ 115 0008 8081      		ld r24,Z
+ 116 000a 9181      		ldd r25,Z+1
+ 117 000c 8217      		cp r24,r18
+ 118 000e 9307      		cpc r25,r19
+ 119 0010 01F4      		brne .L11
+ 120               	.LSM16:
+ 121 0012 6283      		std Z+2,r22
+ 122 0014 0895      		ret
+ 123               	.L11:
+ 124               	.LSM17:
+ 125 0016 3496      		adiw r30,4
+ 126               	.LVL13:
+ 127               	.L10:
+ 128               	.LSM18:
+ 129 0018 8091 0000 		lds r24,Scheduler_TotalTasks
+ 130 001c 90E0      		ldi r25,lo8(0)
+ 131 001e 880F      		lsl r24
+ 132 0020 991F      		rol r25
+ 133 0022 880F      		lsl r24
+ 134 0024 991F      		rol r25
+ 135 0026 8050      		subi r24,lo8(-(Scheduler_TaskList))
+ 136 0028 9040      		sbci r25,hi8(-(Scheduler_TaskList))
+ 137 002a E817      		cp r30,r24
+ 138 002c F907      		cpc r31,r25
+ 139 002e 01F4      		brne .L13
+ 140 0030 0895      		ret
+ 141               	.LFE17:
+ 143               		.section	.text.Scheduler_SetGroupTaskMode,"ax",@progbits
+ 144               	.global	Scheduler_SetGroupTaskMode
+ 146               	Scheduler_SetGroupTaskMode:
+ 147               	.LFB18:
+ 148               	.LSM19:
+ 149               	.LVL14:
+ 150               	/* prologue: function */
+ 151               	/* frame size = 0 */
+ 152 0000 282F      		mov r18,r24
+ 153               	.LSM20:
+ 154 0002 E0E0      		ldi r30,lo8(Scheduler_TaskList)
+ 155 0004 F0E0      		ldi r31,hi8(Scheduler_TaskList)
+ 156               	.LVL15:
+ 157 0006 00C0      		rjmp .L16
+ 158               	.LVL16:
+ 159               	.L18:
+ 160               	.LSM21:
+ 161 0008 8381      		ldd r24,Z+3
+ 162 000a 8217      		cp r24,r18
+ 163 000c 01F4      		brne .L17
+ 164               	.LSM22:
+ 165 000e 6283      		std Z+2,r22
+ 166               	.L17:
+ 167               	.LSM23:
+ 168 0010 3496      		adiw r30,4
+ 169               	.LVL17:
+ 170               	.L16:
+ 171               	.LSM24:
+ 172 0012 8091 0000 		lds r24,Scheduler_TotalTasks
+ 173 0016 90E0      		ldi r25,lo8(0)
+ 174 0018 880F      		lsl r24
+ 175 001a 991F      		rol r25
+ 176 001c 880F      		lsl r24
+ 177 001e 991F      		rol r25
+ 178 0020 8050      		subi r24,lo8(-(Scheduler_TaskList))
+ 179 0022 9040      		sbci r25,hi8(-(Scheduler_TaskList))
+ 180 0024 E817      		cp r30,r24
+ 181 0026 F907      		cpc r31,r25
+ 182 0028 01F4      		brne .L18
+ 183               	/* epilogue start */
+ 184               	.LSM25:
+ 185 002a 0895      		ret
+ 186               	.LFE18:
+ 188               		.comm Scheduler_TotalTasks,1,1
+ 189               		.comm Scheduler_TickCounter,2,1
+ 230               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 Scheduler.c
+     /tmp/ccZGEx7e.s:2      *ABS*:000000000000003f __SREG__
+     /tmp/ccZGEx7e.s:3      *ABS*:000000000000003e __SP_H__
+     /tmp/ccZGEx7e.s:4      *ABS*:000000000000003d __SP_L__
+     /tmp/ccZGEx7e.s:5      *ABS*:0000000000000034 __CCP__
+     /tmp/ccZGEx7e.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccZGEx7e.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccZGEx7e.s:21     .text.Scheduler_HasDelayElapsed:0000000000000000 Scheduler_HasDelayElapsed
+                            *COM*:0000000000000002 Scheduler_TickCounter
+     /tmp/ccZGEx7e.s:100    .text.Scheduler_SetTaskMode:0000000000000000 Scheduler_SetTaskMode
+                            *COM*:0000000000000001 Scheduler_TotalTasks
+     /tmp/ccZGEx7e.s:146    .text.Scheduler_SetGroupTaskMode:0000000000000000 Scheduler_SetGroupTaskMode
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss
+Scheduler_TaskList

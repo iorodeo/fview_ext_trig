@@ -1,0 +1,278 @@
+   1               		.file	"RingBuff.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  17               	.Ltext0:
+  18               		.section	.text.Buffer_Initialize,"ax",@progbits
+  19               	.global	Buffer_Initialize
+  21               	Buffer_Initialize:
+  22               	.LFB13:
+  23               	.LSM0:
+  24               	.LVL0:
+  25               	/* prologue: function */
+  26               	/* frame size = 0 */
+  27 0000 FC01      		movw r30,r24
+  28               	.LBB17:
+  29               	.LSM1:
+  30 0002 8FB7      		in r24,__SREG__
+  31               	.LVL1:
+  32               	.LBB18:
+  33               	.LBB19:
+  34               	.LSM2:
+  35               	/* #APP */
+  36               	 ;  50 "/usr/lib/gcc/avr/4.3.4/../../../avr/include/util/atomic.h" 1
+  37 0004 F894      		cli
+  38               	 ;  0 "" 2
+  39               	/* #NOAPP */
+  40               	.LBE19:
+  41               	.LBE18:
+  42               	.LSM3:
+  43 0006 DF01      		movw r26,r30
+  44 0008 A059      		subi r26,lo8(-(6000))
+  45 000a B84E      		sbci r27,hi8(-(6000))
+  46 000c 1196      		adiw r26,1
+  47 000e FC93      		st X,r31
+  48 0010 EE93      		st -X,r30
+  49               	.LSM4:
+  50 0012 DF01      		movw r26,r30
+  51 0014 AE58      		subi r26,lo8(-(6002))
+  52 0016 B84E      		sbci r27,hi8(-(6002))
+  53 0018 1196      		adiw r26,1
+  54 001a FC93      		st X,r31
+  55 001c EE93      		st -X,r30
+  56               	.LSM5:
+  57 001e EC58      		subi r30,lo8(-(6004))
+  58 0020 F84E      		sbci r31,hi8(-(6004))
+  59 0022 1182      		std Z+1,__zero_reg__
+  60 0024 1082      		st Z,__zero_reg__
+  61               	.LBB20:
+  62               	.LBB21:
+  63               	.LSM6:
+  64 0026 8FBF      		out __SREG__,r24
+  65               	.LSM7:
+  66               	/* epilogue start */
+  67               	.LBE21:
+  68               	.LBE20:
+  69               	.LBE17:
+  70               	.LSM8:
+  71 0028 0895      		ret
+  72               	.LFE13:
+  74               		.section	.text.Buffer_StoreElement,"ax",@progbits
+  75               	.global	Buffer_StoreElement
+  77               	Buffer_StoreElement:
+  78               	.LFB14:
+  79               	.LSM9:
+  80               	.LVL2:
+  81 0000 1F93      		push r17
+  82               	/* prologue: function */
+  83               	/* frame size = 0 */
+  84 0002 AC01      		movw r20,r24
+  85               	.LBB22:
+  86               	.LSM10:
+  87 0004 1FB7      		in r17,__SREG__
+  88               	.LVL3:
+  89               	.LBB23:
+  90               	.LBB24:
+  91               	.LSM11:
+  92               	/* #APP */
+  93               	 ;  50 "/usr/lib/gcc/avr/4.3.4/../../../avr/include/util/atomic.h" 1
+  94 0006 F894      		cli
+  95               	 ;  0 "" 2
+  96               	/* #NOAPP */
+  97               	.LBE24:
+  98               	.LBE23:
+  99               	.LSM12:
+ 100 0008 FC01      		movw r30,r24
+ 101 000a EC58      		subi r30,lo8(-(6004))
+ 102 000c F84E      		sbci r31,hi8(-(6004))
+ 103 000e 8081      		ld r24,Z
+ 104 0010 9181      		ldd r25,Z+1
+ 105               	.LVL4:
+ 106 0012 885B      		subi r24,lo8(3000)
+ 107 0014 9B40      		sbci r25,hi8(3000)
+ 108 0016 01F4      		brne .L4
+ 109               	.LSM13:
+ 110 0018 FA01      		movw r30,r20
+ 111 001a EE58      		subi r30,lo8(-(6002))
+ 112 001c F84E      		sbci r31,hi8(-(6002))
+ 113 001e 8081      		ld r24,Z
+ 114 0020 9181      		ldd r25,Z+1
+ 115 0022 0296      		adiw r24,2
+ 116 0024 9183      		std Z+1,r25
+ 117 0026 8083      		st Z,r24
+ 118               	.LSM14:
+ 119 0028 2081      		ld r18,Z
+ 120 002a 3181      		ldd r19,Z+1
+ 121 002c CA01      		movw r24,r20
+ 122 002e 8059      		subi r24,lo8(-(6000))
+ 123 0030 984E      		sbci r25,hi8(-(6000))
+ 124 0032 2817      		cp r18,r24
+ 125 0034 3907      		cpc r19,r25
+ 126 0036 01F4      		brne .L9
+ 127               	.L5:
+ 128               	.LSM15:
+ 129 0038 5183      		std Z+1,r21
+ 130 003a 4083      		st Z,r20
+ 131               	.L9:
+ 132 003c 20E0      		ldi r18,lo8(0)
+ 133               	.LVL5:
+ 134 003e 00C0      		rjmp .L6
+ 135               	.LVL6:
+ 136               	.L4:
+ 137               	.LSM16:
+ 138 0040 8081      		ld r24,Z
+ 139 0042 9181      		ldd r25,Z+1
+ 140 0044 0196      		adiw r24,1
+ 141 0046 9183      		std Z+1,r25
+ 142 0048 8083      		st Z,r24
+ 143 004a 21E0      		ldi r18,lo8(1)
+ 144               	.LVL7:
+ 145               	.L6:
+ 146               	.LSM17:
+ 147 004c DA01      		movw r26,r20
+ 148 004e A059      		subi r26,lo8(-(6000))
+ 149 0050 B84E      		sbci r27,hi8(-(6000))
+ 150 0052 ED91      		ld r30,X+
+ 151 0054 FC91      		ld r31,X
+ 152 0056 1197      		sbiw r26,1
+ 153 0058 7183      		std Z+1,r23
+ 154 005a 6083      		st Z,r22
+ 155               	.LSM18:
+ 156 005c 8D91      		ld r24,X+
+ 157 005e 9C91      		ld r25,X
+ 158 0060 1197      		sbiw r26,1
+ 159 0062 0296      		adiw r24,2
+ 160 0064 1196      		adiw r26,1
+ 161 0066 9C93      		st X,r25
+ 162 0068 8E93      		st -X,r24
+ 163               	.LSM19:
+ 164 006a ED91      		ld r30,X+
+ 165 006c FC91      		ld r31,X
+ 166 006e 1197      		sbiw r26,1
+ 167 0070 EA17      		cp r30,r26
+ 168 0072 FB07      		cpc r31,r27
+ 169 0074 01F4      		brne .L7
+ 170               	.LSM20:
+ 171 0076 5183      		std Z+1,r21
+ 172 0078 4083      		st Z,r20
+ 173               	.L7:
+ 174               	.LBB25:
+ 175               	.LBB26:
+ 176               	.LSM21:
+ 177 007a 1FBF      		out __SREG__,r17
+ 178               	.LSM22:
+ 179               	.LBE26:
+ 180               	.LBE25:
+ 181               	.LBE22:
+ 182               	.LSM23:
+ 183 007c 822F      		mov r24,r18
+ 184               	/* epilogue start */
+ 185 007e 1F91      		pop r17
+ 186               	.LVL8:
+ 187 0080 0895      		ret
+ 188               	.LFE14:
+ 190               		.section	.text.Buffer_GetElement,"ax",@progbits
+ 191               	.global	Buffer_GetElement
+ 193               	Buffer_GetElement:
+ 194               	.LFB15:
+ 195               	.LSM24:
+ 196               	.LVL9:
+ 197 0000 1F93      		push r17
+ 198               	/* prologue: function */
+ 199               	/* frame size = 0 */
+ 200 0002 AC01      		movw r20,r24
+ 201               	.LBB27:
+ 202               	.LSM25:
+ 203 0004 1FB7      		in r17,__SREG__
+ 204               	.LVL10:
+ 205               	.LBB28:
+ 206               	.LBB29:
+ 207               	.LSM26:
+ 208               	/* #APP */
+ 209               	 ;  50 "/usr/lib/gcc/avr/4.3.4/../../../avr/include/util/atomic.h" 1
+ 210 0006 F894      		cli
+ 211               	 ;  0 "" 2
+ 212               	/* #NOAPP */
+ 213               	.LBE29:
+ 214               	.LBE28:
+ 215               	.LSM27:
+ 216 0008 DC01      		movw r26,r24
+ 217 000a AE58      		subi r26,lo8(-(6002))
+ 218 000c B84E      		sbci r27,hi8(-(6002))
+ 219 000e ED91      		ld r30,X+
+ 220 0010 FC91      		ld r31,X
+ 221 0012 1197      		sbiw r26,1
+ 222 0014 6081      		ld r22,Z
+ 223               	.LVL11:
+ 224 0016 7181      		ldd r23,Z+1
+ 225               	.LVL12:
+ 226               	.LSM28:
+ 227 0018 8D91      		ld r24,X+
+ 228 001a 9C91      		ld r25,X
+ 229 001c 1197      		sbiw r26,1
+ 230               	.LVL13:
+ 231 001e 0296      		adiw r24,2
+ 232 0020 1196      		adiw r26,1
+ 233 0022 9C93      		st X,r25
+ 234 0024 8E93      		st -X,r24
+ 235               	.LSM29:
+ 236 0026 FA01      		movw r30,r20
+ 237 0028 EC58      		subi r30,lo8(-(6004))
+ 238 002a F84E      		sbci r31,hi8(-(6004))
+ 239 002c 8081      		ld r24,Z
+ 240 002e 9181      		ldd r25,Z+1
+ 241 0030 0197      		sbiw r24,1
+ 242 0032 9183      		std Z+1,r25
+ 243 0034 8083      		st Z,r24
+ 244               	.LSM30:
+ 245 0036 2D91      		ld r18,X+
+ 246 0038 3C91      		ld r19,X
+ 247 003a 1197      		sbiw r26,1
+ 248 003c CA01      		movw r24,r20
+ 249 003e 8059      		subi r24,lo8(-(6000))
+ 250 0040 984E      		sbci r25,hi8(-(6000))
+ 251 0042 2817      		cp r18,r24
+ 252 0044 3907      		cpc r19,r25
+ 253 0046 01F4      		brne .L11
+ 254               	.LSM31:
+ 255 0048 1196      		adiw r26,1
+ 256 004a 5C93      		st X,r21
+ 257 004c 4E93      		st -X,r20
+ 258               	.L11:
+ 259               	.LBB30:
+ 260               	.LBB31:
+ 261               	.LSM32:
+ 262 004e 1FBF      		out __SREG__,r17
+ 263               	.LSM33:
+ 264               	.LBE31:
+ 265               	.LBE30:
+ 266               	.LBE27:
+ 267               	.LSM34:
+ 268 0050 CB01      		movw r24,r22
+ 269               	.LVL14:
+ 270               	/* epilogue start */
+ 271 0052 1F91      		pop r17
+ 272               	.LVL15:
+ 273 0054 0895      		ret
+ 274               	.LFE15:
+ 316               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 RingBuff.c
+     /tmp/ccDAeStd.s:2      *ABS*:000000000000003f __SREG__
+     /tmp/ccDAeStd.s:3      *ABS*:000000000000003e __SP_H__
+     /tmp/ccDAeStd.s:4      *ABS*:000000000000003d __SP_L__
+     /tmp/ccDAeStd.s:5      *ABS*:0000000000000034 __CCP__
+     /tmp/ccDAeStd.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccDAeStd.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccDAeStd.s:21     .text.Buffer_Initialize:0000000000000000 Buffer_Initialize
+     /tmp/ccDAeStd.s:77     .text.Buffer_StoreElement:0000000000000000 Buffer_StoreElement
+     /tmp/ccDAeStd.s:193    .text.Buffer_GetElement:0000000000000000 Buffer_GetElement
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss

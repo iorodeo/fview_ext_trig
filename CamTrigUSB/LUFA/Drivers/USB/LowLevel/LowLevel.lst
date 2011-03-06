@@ -1,0 +1,229 @@
+   1               		.file	"LowLevel.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  17               	.Ltext0:
+  18               		.section	.text.USB_ResetInterface,"ax",@progbits
+  19               	.global	USB_ResetInterface
+  21               	USB_ResetInterface:
+  22               	.LFB33:
+  23               	.LSM0:
+  24 0000 DF93      		push r29
+  25 0002 CF93      		push r28
+  26 0004 00D0      		rcall .
+  27 0006 CDB7      		in r28,__SP_L__
+  28 0008 DEB7      		in r29,__SP_H__
+  29               	/* prologue: function */
+  30               	/* frame size = 2 */
+  31               	.LSM1:
+  32 000a 0E94 0000 		call USB_INT_DisableAllInterrupts
+  33               	.LSM2:
+  34 000e 0E94 0000 		call USB_INT_ClearAllInterrupts
+  35               	.LSM3:
+  36 0012 1092 0000 		sts USB_IsConnected,__zero_reg__
+  37               	.LSM4:
+  38 0016 1092 0000 		sts USB_ConfigurationNumber,__zero_reg__
+  39               	.LSM5:
+  40 001a 1092 0000 		sts USB_IsSuspended,__zero_reg__
+  41               	.LSM6:
+  42 001e 1092 0000 		sts USB_RemoteWakeupEnabled,__zero_reg__
+  43               	.LSM7:
+  44 0022 1092 0000 		sts USB_CurrentlySelfPowered,__zero_reg__
+  45               	.LSM8:
+  46 0026 84E1      		ldi r24,lo8(20)
+  47 0028 89BD      		out 73-32,r24
+  48 002a 89B5      		in r24,73-32
+  49 002c 8260      		ori r24,lo8(2)
+  50 002e 89BD      		out 73-32,r24
+  51               	.L2:
+  52               	.LSM9:
+  53 0030 09B4      		in __tmp_reg__,73-32
+  54 0032 00FE      		sbrs __tmp_reg__,0
+  55 0034 00C0      		rjmp .L2
+  56               	.LBB2:
+  57               	.LSM10:
+  58 0036 8091 D800 		lds r24,216
+  59               	.LVL0:
+  60 003a 982F      		mov r25,r24
+  61 003c 9F77      		andi r25,lo8(127)
+  62 003e 9093 D800 		sts 216,r25
+  63 0042 8068      		ori r24,lo8(-128)
+  64 0044 8093 D800 		sts 216,r24
+  65               	.LBE2:
+  66               	.LSM11:
+  67 0048 8091 D700 		lds r24,215
+  68               	.LVL1:
+  69 004c 8160      		ori r24,lo8(1)
+  70 004e 8093 D700 		sts 215,r24
+  71               	.LSM12:
+  72 0052 8091 D800 		lds r24,216
+  73 0056 8F7D      		andi r24,lo8(-33)
+  74 0058 8093 D800 		sts 216,r24
+  75               	.LSM13:
+  76 005c 8091 E000 		lds r24,224
+  77 0060 8B7F      		andi r24,lo8(-5)
+  78 0062 8093 E000 		sts 224,r24
+  79               	.LSM14:
+  80 0066 8091 D800 		lds r24,216
+  81 006a 8160      		ori r24,lo8(1)
+  82 006c 8093 D800 		sts 216,r24
+  83               	.LBB3:
+  84               	.LSM15:
+  85 0070 80E0      		ldi r24,lo8(256)
+  86 0072 91E0      		ldi r25,hi8(256)
+  87 0074 60E0      		ldi r22,lo8(0)
+  88 0076 AE01      		movw r20,r28
+  89 0078 4F5F      		subi r20,lo8(-(1))
+  90 007a 5F4F      		sbci r21,hi8(-(1))
+  91 007c 0E94 0000 		call USB_GetDescriptor
+  92 0080 892B      		or r24,r25
+  93 0082 01F0      		breq .L3
+  94               	.LBB4:
+  95               	.LSM16:
+  96 0084 E981      		ldd r30,Y+1
+  97 0086 FA81      		ldd r31,Y+2
+  98               	.LVL2:
+  99 0088 3796      		adiw r30,7
+ 100               	.LVL3:
+ 101               	/* #APP */
+ 102               	 ;  218 "../../LUFA/Drivers/USB/LowLevel/LowLevel.c" 1
+ 103 008a E491      		lpm r30, Z
+ 104               		
+ 105               	 ;  0 "" 2
+ 106               	.LVL4:
+ 107               	/* #NOAPP */
+ 108               	.LBE4:
+ 109 008c E093 0000 		sts USB_ControlEndpointSize,r30
+ 110               	.L3:
+ 111               	.LBE3:
+ 112               	.LSM17:
+ 113 0090 8091 E000 		lds r24,224
+ 114 0094 8E7F      		andi r24,lo8(-2)
+ 115 0096 8093 E000 		sts 224,r24
+ 116               	.LSM18:
+ 117 009a 8091 E200 		lds r24,226
+ 118 009e 8160      		ori r24,lo8(1)
+ 119 00a0 8093 E200 		sts 226,r24
+ 120               	.LSM19:
+ 121 00a4 8091 E200 		lds r24,226
+ 122 00a8 8860      		ori r24,lo8(8)
+ 123 00aa 8093 E200 		sts 226,r24
+ 124               	/* epilogue start */
+ 125               	.LSM20:
+ 126 00ae 0F90      		pop __tmp_reg__
+ 127 00b0 0F90      		pop __tmp_reg__
+ 128 00b2 CF91      		pop r28
+ 129 00b4 DF91      		pop r29
+ 130 00b6 0895      		ret
+ 131               	.LFE33:
+ 133               		.section	.text.USB_ShutDown,"ax",@progbits
+ 134               	.global	USB_ShutDown
+ 136               	USB_ShutDown:
+ 137               	.LFB32:
+ 138               	.LSM21:
+ 139               	/* prologue: function */
+ 140               	/* frame size = 0 */
+ 141               	.LSM22:
+ 142 0000 8091 0000 		lds r24,USB_IsConnected
+ 143 0004 8823      		tst r24
+ 144 0006 01F0      		breq .L7
+ 145               	.LSM23:
+ 146 0008 0E94 0000 		call Event_USB_Disconnect
+ 147               	.L7:
+ 148               	.LSM24:
+ 149 000c 8091 E000 		lds r24,224
+ 150 0010 8160      		ori r24,lo8(1)
+ 151 0012 8093 E000 		sts 224,r24
+ 152               	.LSM25:
+ 153 0016 0E94 0000 		call USB_INT_DisableAllInterrupts
+ 154               	.LSM26:
+ 155 001a 0E94 0000 		call USB_INT_ClearAllInterrupts
+ 156               	.LSM27:
+ 157 001e 1092 0000 		sts USB_IsConnected,__zero_reg__
+ 158               	.LSM28:
+ 159 0022 1092 0000 		sts USB_IsInitialized,__zero_reg__
+ 160               	.LSM29:
+ 161 0026 1092 0000 		sts USB_ConfigurationNumber,__zero_reg__
+ 162               	.LSM30:
+ 163 002a 8091 D800 		lds r24,216
+ 164 002e 8F77      		andi r24,lo8(127)
+ 165 0030 8093 D800 		sts 216,r24
+ 166               	.LSM31:
+ 167 0034 19BC      		out 73-32,__zero_reg__
+ 168               	.LSM32:
+ 169 0036 8091 D800 		lds r24,216
+ 170 003a 8F7E      		andi r24,lo8(-17)
+ 171 003c 8093 D800 		sts 216,r24
+ 172               	/* epilogue start */
+ 173               	.LSM33:
+ 174 0040 0895      		ret
+ 175               	.LFE32:
+ 177               		.section	.text.USB_Init,"ax",@progbits
+ 178               	.global	USB_Init
+ 180               	USB_Init:
+ 181               	.LFB31:
+ 182               	.LSM34:
+ 183               	/* prologue: function */
+ 184               	/* frame size = 0 */
+ 185               	.LSM35:
+ 186 0000 0E94 0000 		call USB_ShutDown
+ 187               	.LSM36:
+ 188 0004 E7ED      		ldi r30,lo8(215)
+ 189 0006 F0E0      		ldi r31,hi8(215)
+ 190 0008 8081      		ld r24,Z
+ 191 000a 8068      		ori r24,lo8(-128)
+ 192 000c 8083      		st Z,r24
+ 193               	.LSM37:
+ 194 000e 0E94 0000 		call USB_ResetInterface
+ 195               	.LSM38:
+ 196 0012 E8ED      		ldi r30,lo8(216)
+ 197 0014 F0E0      		ldi r31,hi8(216)
+ 198 0016 8081      		ld r24,Z
+ 199 0018 8061      		ori r24,lo8(16)
+ 200 001a 8083      		st Z,r24
+ 201               	.LSM39:
+ 202 001c 81E0      		ldi r24,lo8(1)
+ 203 001e 8093 0000 		sts USB_IsInitialized,r24
+ 204               	.LSM40:
+ 205               	/* #APP */
+ 206               	 ;  110 "../../LUFA/Drivers/USB/LowLevel/LowLevel.c" 1
+ 207 0022 7894      		sei
+ 208               	 ;  0 "" 2
+ 209               	/* epilogue start */
+ 210               	.LSM41:
+ 211               	/* #NOAPP */
+ 212 0024 0895      		ret
+ 213               	.LFE31:
+ 215               		.weak	USB_GetDescriptor
+ 256               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 LowLevel.c
+     /tmp/cc8IZTHb.s:2      *ABS*:000000000000003f __SREG__
+     /tmp/cc8IZTHb.s:3      *ABS*:000000000000003e __SP_H__
+     /tmp/cc8IZTHb.s:4      *ABS*:000000000000003d __SP_L__
+     /tmp/cc8IZTHb.s:5      *ABS*:0000000000000034 __CCP__
+     /tmp/cc8IZTHb.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cc8IZTHb.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cc8IZTHb.s:21     .text.USB_ResetInterface:0000000000000000 USB_ResetInterface
+     /tmp/cc8IZTHb.s:136    .text.USB_ShutDown:0000000000000000 USB_ShutDown
+     /tmp/cc8IZTHb.s:180    .text.USB_Init:0000000000000000 USB_Init
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss
+USB_INT_DisableAllInterrupts
+USB_INT_ClearAllInterrupts
+USB_IsConnected
+USB_ConfigurationNumber
+USB_IsSuspended
+USB_RemoteWakeupEnabled
+USB_CurrentlySelfPowered
+USB_GetDescriptor
+USB_ControlEndpointSize
+Event_USB_Disconnect
+USB_IsInitialized

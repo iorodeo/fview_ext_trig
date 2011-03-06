@@ -1,0 +1,247 @@
+   1               		.file	"handler.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  17               	.Ltext0:
+  18               		.section	.text.Handler_Init,"ax",@progbits
+  19               	.global	Handler_Init
+  21               	Handler_Init:
+  22               	.LFB2:
+  23               	.LSM0:
+  24               	/* prologue: function */
+  25               	/* frame size = 0 */
+  26               	.LSM1:
+  27 0000 1092 0000 		sts mask,__zero_reg__
+  28 0004 1092 0000 		sts mask+1,__zero_reg__
+  29 0008 1092 0000 		sts mask+2,__zero_reg__
+  30 000c 1092 0000 		sts mask+3,__zero_reg__
+  31               	.LSM2:
+  32 0010 E1E7      		ldi r30,lo8(113)
+  33 0012 F0E0      		ldi r31,hi8(113)
+  34 0014 8081      		ld r24,Z
+  35 0016 8160      		ori r24,lo8(1)
+  36 0018 8083      		st Z,r24
+  37               	/* epilogue start */
+  38               	.LSM3:
+  39 001a 0895      		ret
+  40               	.LFE2:
+  42               		.section	.text.__vector_35,"ax",@progbits
+  43               	.global	__vector_35
+  45               	__vector_35:
+  46               	.LFB3:
+  47               	.LSM4:
+  48 0000 1F92      		push __zero_reg__
+  49 0002 0F92      		push r0
+  50 0004 0FB6      		in r0,__SREG__
+  51 0006 0F92      		push r0
+  52 0008 0BB6      		in r0,91-32
+  53 000a 0F92      		push r0
+  54 000c 1124      		clr __zero_reg__
+  55 000e EF92      		push r14
+  56 0010 FF92      		push r15
+  57 0012 0F93      		push r16
+  58 0014 1F93      		push r17
+  59 0016 2F93      		push r18
+  60 0018 3F93      		push r19
+  61 001a 4F93      		push r20
+  62 001c 5F93      		push r21
+  63 001e 6F93      		push r22
+  64 0020 7F93      		push r23
+  65 0022 8F93      		push r24
+  66 0024 9F93      		push r25
+  67 0026 AF93      		push r26
+  68 0028 BF93      		push r27
+  69 002a CF93      		push r28
+  70 002c DF93      		push r29
+  71 002e EF93      		push r30
+  72 0030 FF93      		push r31
+  73               	/* prologue: Signal */
+  74               	/* frame size = 0 */
+  75               	.LSM5:
+  76 0032 90E0      		ldi r25,lo8(start_count)
+  77 0034 E92E      		mov r14,r25
+  78 0036 90E0      		ldi r25,hi8(start_count)
+  79 0038 F92E      		mov r15,r25
+  80 003a 00E0      		ldi r16,lo8(p_handler_func)
+  81 003c 10E0      		ldi r17,hi8(p_handler_func)
+  82 003e C0E0      		ldi r28,lo8(0)
+  83 0040 D0E0      		ldi r29,hi8(0)
+  84               	.L5:
+  85               	.LSM6:
+  86 0042 FE01      		movw r30,r28
+  87 0044 E050      		subi r30,lo8(-(mask))
+  88 0046 F040      		sbci r31,hi8(-(mask))
+  89 0048 8081      		ld r24,Z
+  90 004a 8130      		cpi r24,lo8(1)
+  91 004c 01F4      		brne .L4
+  92               	.LSM7:
+  93 004e FE01      		movw r30,r28
+  94 0050 EE0F      		lsl r30
+  95 0052 FF1F      		rol r31
+  96 0054 EE0F      		lsl r30
+  97 0056 FF1F      		rol r31
+  98 0058 E050      		subi r30,lo8(-(count))
+  99 005a F040      		sbci r31,hi8(-(count))
+ 100 005c 8081      		ld r24,Z
+ 101 005e 9181      		ldd r25,Z+1
+ 102 0060 A281      		ldd r26,Z+2
+ 103 0062 B381      		ldd r27,Z+3
+ 104 0064 0197      		sbiw r24,1
+ 105 0066 A109      		sbc r26,__zero_reg__
+ 106 0068 B109      		sbc r27,__zero_reg__
+ 107 006a 8083      		st Z,r24
+ 108 006c 9183      		std Z+1,r25
+ 109 006e A283      		std Z+2,r26
+ 110 0070 B383      		std Z+3,r27
+ 111               	.LSM8:
+ 112 0072 8081      		ld r24,Z
+ 113 0074 9181      		ldd r25,Z+1
+ 114 0076 A281      		ldd r26,Z+2
+ 115 0078 B381      		ldd r27,Z+3
+ 116 007a 0097      		sbiw r24,0
+ 117 007c A105      		cpc r26,__zero_reg__
+ 118 007e B105      		cpc r27,__zero_reg__
+ 119 0080 01F4      		brne .L4
+ 120               	.LSM9:
+ 121 0082 D701      		movw r26,r14
+ 122 0084 2D91      		ld r18,X+
+ 123 0086 3D91      		ld r19,X+
+ 124 0088 4D91      		ld r20,X+
+ 125 008a 5C91      		ld r21,X
+ 126 008c 2083      		st Z,r18
+ 127 008e 3183      		std Z+1,r19
+ 128 0090 4283      		std Z+2,r20
+ 129 0092 5383      		std Z+3,r21
+ 130               	.LSM10:
+ 131 0094 D801      		movw r26,r16
+ 132 0096 ED91      		ld r30,X+
+ 133 0098 FC91      		ld r31,X
+ 134 009a 0995      		icall
+ 135               	.L4:
+ 136 009c 2196      		adiw r28,1
+ 137 009e 84E0      		ldi r24,lo8(4)
+ 138 00a0 90E0      		ldi r25,hi8(4)
+ 139 00a2 E80E      		add r14,r24
+ 140 00a4 F91E      		adc r15,r25
+ 141 00a6 0E5F      		subi r16,lo8(-(2))
+ 142 00a8 1F4F      		sbci r17,hi8(-(2))
+ 143               	.LSM11:
+ 144 00aa C430      		cpi r28,4
+ 145 00ac D105      		cpc r29,__zero_reg__
+ 146 00ae 01F4      		brne .L5
+ 147               	/* epilogue start */
+ 148               	.LSM12:
+ 149 00b0 FF91      		pop r31
+ 150 00b2 EF91      		pop r30
+ 151 00b4 DF91      		pop r29
+ 152 00b6 CF91      		pop r28
+ 153 00b8 BF91      		pop r27
+ 154 00ba AF91      		pop r26
+ 155 00bc 9F91      		pop r25
+ 156 00be 8F91      		pop r24
+ 157 00c0 7F91      		pop r23
+ 158 00c2 6F91      		pop r22
+ 159 00c4 5F91      		pop r21
+ 160 00c6 4F91      		pop r20
+ 161 00c8 3F91      		pop r19
+ 162 00ca 2F91      		pop r18
+ 163 00cc 1F91      		pop r17
+ 164 00ce 0F91      		pop r16
+ 165 00d0 FF90      		pop r15
+ 166 00d2 EF90      		pop r14
+ 167 00d4 0F90      		pop r0
+ 168 00d6 0BBE      		out 91-32,r0
+ 169 00d8 0F90      		pop r0
+ 170 00da 0FBE      		out __SREG__,r0
+ 171 00dc 0F90      		pop r0
+ 172 00de 1F90      		pop __zero_reg__
+ 173 00e0 1895      		reti
+ 174               	.LFE3:
+ 176               		.section	.text.Reg_Handler,"ax",@progbits
+ 177               	.global	Reg_Handler
+ 179               	Reg_Handler:
+ 180               	.LFB4:
+ 181               	.LSM13:
+ 182               	.LVL0:
+ 183 0000 0F93      		push r16
+ 184               	.LVL1:
+ 185 0002 CF93      		push r28
+ 186 0004 DF93      		push r29
+ 187               	/* prologue: function */
+ 188               	/* frame size = 0 */
+ 189 0006 A22F      		mov r26,r18
+ 190               	.LSM14:
+ 191 0008 B0E0      		ldi r27,lo8(0)
+ 192               	.LSM15:
+ 193 000a FD01      		movw r30,r26
+ 194 000c EE0F      		lsl r30
+ 195 000e FF1F      		rol r31
+ 196 0010 E050      		subi r30,lo8(-(p_handler_func))
+ 197 0012 F040      		sbci r31,hi8(-(p_handler_func))
+ 198 0014 9183      		std Z+1,r25
+ 199 0016 8083      		st Z,r24
+ 200               	.LSM16:
+ 201 0018 FD01      		movw r30,r26
+ 202 001a EE0F      		lsl r30
+ 203 001c FF1F      		rol r31
+ 204 001e EE0F      		lsl r30
+ 205 0020 FF1F      		rol r31
+ 206               	.LVL2:
+ 207 0022 CF01      		movw r24,r30
+ 208               	.LVL3:
+ 209 0024 8050      		subi r24,lo8(-(start_count))
+ 210 0026 9040      		sbci r25,hi8(-(start_count))
+ 211 0028 EC01      		movw r28,r24
+ 212 002a 4883      		st Y,r20
+ 213 002c 5983      		std Y+1,r21
+ 214 002e 6A83      		std Y+2,r22
+ 215 0030 7B83      		std Y+3,r23
+ 216               	.LSM17:
+ 217 0032 E050      		subi r30,lo8(-(count))
+ 218 0034 F040      		sbci r31,hi8(-(count))
+ 219 0036 4083      		st Z,r20
+ 220 0038 5183      		std Z+1,r21
+ 221 003a 6283      		std Z+2,r22
+ 222 003c 7383      		std Z+3,r23
+ 223               	.LSM18:
+ 224 003e A050      		subi r26,lo8(-(mask))
+ 225 0040 B040      		sbci r27,hi8(-(mask))
+ 226 0042 0C93      		st X,r16
+ 227               	.LVL4:
+ 228               	/* epilogue start */
+ 229               	.LSM19:
+ 230 0044 DF91      		pop r29
+ 231 0046 CF91      		pop r28
+ 232 0048 0F91      		pop r16
+ 233               	.LVL5:
+ 234 004a 0895      		ret
+ 235               	.LFE4:
+ 237               		.comm count,16,1
+ 238               		.comm start_count,16,1
+ 239               		.comm p_handler_func,8,1
+ 240               		.comm mask,4,1
+ 281               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 handler.c
+     /tmp/cc9PHzD9.s:2      *ABS*:000000000000003f __SREG__
+     /tmp/cc9PHzD9.s:3      *ABS*:000000000000003e __SP_H__
+     /tmp/cc9PHzD9.s:4      *ABS*:000000000000003d __SP_L__
+     /tmp/cc9PHzD9.s:5      *ABS*:0000000000000034 __CCP__
+     /tmp/cc9PHzD9.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cc9PHzD9.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cc9PHzD9.s:21     .text.Handler_Init:0000000000000000 Handler_Init
+                            *COM*:0000000000000004 mask
+     /tmp/cc9PHzD9.s:45     .text.__vector_35:0000000000000000 __vector_35
+                            *COM*:0000000000000010 start_count
+                            *COM*:0000000000000008 p_handler_func
+                            *COM*:0000000000000010 count
+     /tmp/cc9PHzD9.s:179    .text.Reg_Handler:0000000000000000 Reg_Handler
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss

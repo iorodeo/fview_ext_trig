@@ -1,0 +1,93 @@
+   1               		.file	"USBTask.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  17               	.Ltext0:
+  18               		.section	.text.USB_USBTask,"ax",@progbits
+  19               	.global	USB_USBTask
+  21               	USB_USBTask:
+  22               	.LFB31:
+  23               	.LSM0:
+  24 0000 0F93      		push r16
+  25 0002 1F93      		push r17
+  26               	/* prologue: function */
+  27               	/* frame size = 0 */
+  28               	.LBB16:
+  29               	.LBB17:
+  30               	.LSM1:
+  31 0004 8091 0000 		lds r24,USB_IsConnected
+  32 0008 8823      		tst r24
+  33 000a 01F0      		breq .L4
+  34               	.LBB18:
+  35               	.LSM2:
+  36 000c 0091 E900 		lds r16,233
+  37               	.LSM3:
+  38 0010 1092 E900 		sts 233,__zero_reg__
+  39               	.LSM4:
+  40 0014 8091 E800 		lds r24,232
+  41 0018 83FF      		sbrs r24,3
+  42 001a 00C0      		rjmp .L3
+  43               	.LBB19:
+  44               	.LSM5:
+  45 001c 1FB7      		in r17,__SREG__
+  46               	.LBB20:
+  47               	.LBB21:
+  48               	.LSM6:
+  49               	/* #APP */
+  50               	 ;  50 "/usr/lib/gcc/avr/4.3.4/../../../avr/include/util/atomic.h" 1
+  51 001e F894      		cli
+  52               	 ;  0 "" 2
+  53               	/* #NOAPP */
+  54               	.LBE21:
+  55               	.LBE20:
+  56               	.LSM7:
+  57 0020 0E94 0000 		call USB_Device_ProcessControlPacket
+  58               	.LBB22:
+  59               	.LBB23:
+  60               	.LSM8:
+  61 0024 1FBF      		out __SREG__,r17
+  62               	.LSM9:
+  63               	.L3:
+  64               	.LBE23:
+  65               	.LBE22:
+  66               	.LBE19:
+  67               	.LSM10:
+  68 0026 0770      		andi r16,lo8(7)
+  69               	.LSM11:
+  70 0028 0093 E900 		sts 233,r16
+  71               	.L4:
+  72               	/* epilogue start */
+  73               	.LBE18:
+  74               	.LBE17:
+  75               	.LBE16:
+  76               	.LSM12:
+  77 002c 1F91      		pop r17
+  78 002e 0F91      		pop r16
+  79 0030 0895      		ret
+  80               	.LFE31:
+  82               		.comm USB_IsConnected,1,1
+  83               		.comm USB_IsInitialized,1,1
+  84               		.comm USB_IsSuspended,1,1
+ 109               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 USBTask.c
+     /tmp/ccCQQzem.s:2      *ABS*:000000000000003f __SREG__
+     /tmp/ccCQQzem.s:3      *ABS*:000000000000003e __SP_H__
+     /tmp/ccCQQzem.s:4      *ABS*:000000000000003d __SP_L__
+     /tmp/ccCQQzem.s:5      *ABS*:0000000000000034 __CCP__
+     /tmp/ccCQQzem.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccCQQzem.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccCQQzem.s:21     .text.USB_USBTask:0000000000000000 USB_USBTask
+                            *COM*:0000000000000001 USB_IsConnected
+                            *COM*:0000000000000001 USB_IsInitialized
+                            *COM*:0000000000000001 USB_IsSuspended
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss
+USB_Device_ProcessControlPacket

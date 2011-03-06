@@ -1,0 +1,153 @@
+   1               		.file	"Serial.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  17               	.Ltext0:
+  18               		.section	.text.Serial_Init,"ax",@progbits
+  19               	.global	Serial_Init
+  21               	Serial_Init:
+  22               	.LFB10:
+  23               	.LSM0:
+  24               	.LVL0:
+  25 0000 0F93      		push r16
+  26 0002 1F93      		push r17
+  27               	/* prologue: function */
+  28               	/* frame size = 0 */
+  29 0004 8B01      		movw r16,r22
+  30 0006 9C01      		movw r18,r24
+  31               	.LSM1:
+  32 0008 4423      		tst r20
+  33 000a 01F4      		brne .L2
+  34               	.LVL1:
+  35 000c 80E0      		ldi r24,lo8(0)
+  36 000e 00C0      		rjmp .L3
+  37               	.L2:
+  38 0010 82E0      		ldi r24,lo8(2)
+  39               	.L3:
+  40 0012 8093 C800 		sts 200,r24
+  41               	.LSM2:
+  42 0016 88E1      		ldi r24,lo8(24)
+  43 0018 8093 C900 		sts 201,r24
+  44               	.LSM3:
+  45 001c 86E0      		ldi r24,lo8(6)
+  46 001e 8093 CA00 		sts 202,r24
+  47               	.LSM4:
+  48 0022 539A      		sbi 42-32,3
+  49               	.LSM5:
+  50 0024 5A9A      		sbi 43-32,2
+  51               	.LSM6:
+  52 0026 60E4      		ldi r22,lo8(1000000)
+  53 0028 72E4      		ldi r23,hi8(1000000)
+  54 002a 8FE0      		ldi r24,hlo8(1000000)
+  55 002c 90E0      		ldi r25,hhi8(1000000)
+  56 002e A901      		movw r20,r18
+  57 0030 9801      		movw r18,r16
+  58 0032 0E94 0000 		call __udivmodsi4
+  59 0036 2150      		subi r18,lo8(-(-1))
+  60 0038 3040      		sbci r19,hi8(-(-1))
+  61 003a 3093 CD00 		sts (204)+1,r19
+  62 003e 2093 CC00 		sts 204,r18
+  63               	/* epilogue start */
+  64               	.LSM7:
+  65 0042 1F91      		pop r17
+  66 0044 0F91      		pop r16
+  67               	.LVL2:
+  68 0046 0895      		ret
+  69               	.LFE10:
+  71               		.section	.text.Serial_TxString_P,"ax",@progbits
+  72               	.global	Serial_TxString_P
+  74               	Serial_TxString_P:
+  75               	.LFB11:
+  76               	.LSM8:
+  77               	.LVL3:
+  78               	/* prologue: function */
+  79               	/* frame size = 0 */
+  80 0000 FC01      		movw r30,r24
+  81 0002 00C0      		rjmp .L6
+  82               	.LVL4:
+  83               	.L9:
+  84               	.LBB7:
+  85               	.LBB8:
+  86               	.LSM9:
+  87 0004 8091 C800 		lds r24,200
+  88 0008 85FF      		sbrs r24,5
+  89 000a 00C0      		rjmp .L9
+  90               	.LSM10:
+  91 000c 9093 CE00 		sts 206,r25
+  92               	.LBE8:
+  93               	.LBE7:
+  94               	.LSM11:
+  95 0010 3196      		adiw r30,1
+  96               	.LVL5:
+  97               	.L6:
+  98               	.LBB9:
+  99               	.LSM12:
+ 100               	/* #APP */
+ 101               	 ;  49 "../../LUFA/Drivers/AT90USBXXX/Serial.c" 1
+ 102 0012 9491      		lpm r25, Z
+ 103               		
+ 104               	 ;  0 "" 2
+ 105               	/* #NOAPP */
+ 106               	.LBE9:
+ 107 0014 9923      		tst r25
+ 108 0016 01F4      		brne .L9
+ 109               	/* epilogue start */
+ 110               	.LSM13:
+ 111 0018 0895      		ret
+ 112               	.LFE11:
+ 114               		.section	.text.Serial_TxString,"ax",@progbits
+ 115               	.global	Serial_TxString
+ 117               	Serial_TxString:
+ 118               	.LFB12:
+ 119               	.LSM14:
+ 120               	.LVL6:
+ 121               	/* prologue: function */
+ 122               	/* frame size = 0 */
+ 123 0000 FC01      		movw r30,r24
+ 124 0002 00C0      		rjmp .L12
+ 125               	.LVL7:
+ 126               	.L15:
+ 127               	.LBB10:
+ 128               	.LBB11:
+ 129               	.LSM15:
+ 130 0004 8091 C800 		lds r24,200
+ 131 0008 85FF      		sbrs r24,5
+ 132 000a 00C0      		rjmp .L15
+ 133               	.LSM16:
+ 134 000c 9093 CE00 		sts 206,r25
+ 135               	.LBE11:
+ 136               	.LBE10:
+ 137               	.LSM17:
+ 138 0010 3196      		adiw r30,1
+ 139               	.LVL8:
+ 140               	.L12:
+ 141               	.LSM18:
+ 142 0012 9081      		ld r25,Z
+ 143 0014 9923      		tst r25
+ 144 0016 01F4      		brne .L15
+ 145               	/* epilogue start */
+ 146               	.LSM19:
+ 147 0018 0895      		ret
+ 148               	.LFE12:
+ 190               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 Serial.c
+     /tmp/ccRnMvTj.s:2      *ABS*:000000000000003f __SREG__
+     /tmp/ccRnMvTj.s:3      *ABS*:000000000000003e __SP_H__
+     /tmp/ccRnMvTj.s:4      *ABS*:000000000000003d __SP_L__
+     /tmp/ccRnMvTj.s:5      *ABS*:0000000000000034 __CCP__
+     /tmp/ccRnMvTj.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccRnMvTj.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccRnMvTj.s:21     .text.Serial_Init:0000000000000000 Serial_Init
+     /tmp/ccRnMvTj.s:74     .text.Serial_TxString_P:0000000000000000 Serial_TxString_P
+     /tmp/ccRnMvTj.s:117    .text.Serial_TxString:0000000000000000 Serial_TxString
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss
+__udivmodsi4

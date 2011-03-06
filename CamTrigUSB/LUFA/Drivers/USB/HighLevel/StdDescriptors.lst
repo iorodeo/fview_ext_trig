@@ -1,0 +1,44 @@
+   1               		.file	"StdDescriptors.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  17               	.Ltext0:
+  18               		.section	.text.USB_GetDescriptor,"ax",@progbits
+  19               		.weak	USB_GetDescriptor
+  21               	USB_GetDescriptor:
+  22               	.LFB31:
+  23               	.LSM0:
+  24               	.LVL0:
+  25               	/* prologue: function */
+  26               	/* frame size = 0 */
+  27               	.LSM1:
+  28 0000 80E0      		ldi r24,lo8(0)
+  29               	.LVL1:
+  30 0002 0E94 0000 		call Event_USB_DeviceError
+  31               	.LVL2:
+  32               	.LSM2:
+  33 0006 80E0      		ldi r24,lo8(0)
+  34 0008 90E0      		ldi r25,hi8(0)
+  35               	/* epilogue start */
+  36 000a 0895      		ret
+  37               	.LFE31:
+  63               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 StdDescriptors.c
+     /tmp/ccU0dpCr.s:2      *ABS*:000000000000003f __SREG__
+     /tmp/ccU0dpCr.s:3      *ABS*:000000000000003e __SP_H__
+     /tmp/ccU0dpCr.s:4      *ABS*:000000000000003d __SP_L__
+     /tmp/ccU0dpCr.s:5      *ABS*:0000000000000034 __CCP__
+     /tmp/ccU0dpCr.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccU0dpCr.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccU0dpCr.s:21     .text.USB_GetDescriptor:0000000000000000 USB_GetDescriptor
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss
+Event_USB_DeviceError
