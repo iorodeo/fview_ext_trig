@@ -241,6 +241,10 @@ class LiveTimestampModeler(traits.HasTraits):
         self.timestamps_framestamps = np.vstack((self.timestamps_framestamps,
                                                  [now,framestamp]))
 
+        # remove zeros initialized by @traits -JAB 1/27/12
+        if self.timestamps_framestamps[0,0] == 0.0: 
+            self.timestamps_framestamps = self.timestamps_framestamps[1:,:]
+            
         # If more than 100 samples,
         if len(self.timestamps_framestamps) > 100:
             # keep only the most recent 50.
